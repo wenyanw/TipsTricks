@@ -7,3 +7,5 @@ var isEmailValid = Regex.IsMatch(emailAddress, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-
 3. unique filter provided by Ben Lesh
   http://stackoverflow.com/questions/20222555/angularjs-remove-duplicate-elements-in-ng-repeat
 
+4. use side waffle to create angular directive, controllers.
+
