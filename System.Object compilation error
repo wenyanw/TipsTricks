@@ -1,0 +1,8 @@
+Issue: 
+Build error after install Microsoft .NET Framework 4.5.2
+The type 'System.Object' is defined in an assembly that is not referenced. You must add a reference to assembly 'System.Runtime, Version=4.0.0.0
+
+Step 1: Check if the .dll is located under C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\Facades\System.Runtime.dll
+Step 2: if .dll found, add reference under project
+Step 3: if .dll not found, install the Microsoft .NET Framework 4.5.2 Developer Pack for Windows Vista SP2, Windows 7 SP1, Windows 8, Windows 8.1, Windows Server 2008 SP2 Windows Server 2008 R2 SP1, Windows Server 2012 and Windows Server 2012 R2
+from https://www.microsoft.com/en-us/download/confirmation.aspx?id=42637
