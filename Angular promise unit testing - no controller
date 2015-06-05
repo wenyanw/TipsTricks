@@ -1,0 +1,73 @@
+Keep a copy of how to write unit test for promise.
+One error will run into is "then is undefined." It happened to me few times when I forgot to apply
+"    // Propagate promise resolution to 'then' functions using $apply().
+        $rootScope.$apply();
+"
+Below is the article from jsfiddle I followed.
+
+Source from http://jsfiddle.net/ceskdqj8/
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    
+    <head>
+        <title>Jasmine Spec Runner</title>
+        <script type="text/javascript">
+            (function() {
+                var jasmineEnv = jasmine.getEnv();
+                jasmineEnv.updateInterval = 1000;
+
+                var htmlReporter = new jasmine.HtmlReporter();
+
+                jasmineEnv.addReporter(htmlReporter);
+
+                jasmineEnv.specFilter = function(spec) {
+                    return htmlReporter.specFilter(spec);
+                };
+
+                var currentWindowOnload = window.onload;
+
+                window.onload = function() {
+                    if (currentWindowOnload) {
+                        currentWindowOnload();
+                    }
+                    execJasmine();
+                };
+
+                function execJasmine() {
+                    jasmineEnv.execute();
+                }
+
+            })();
+        </script>
+    </head>
+    
+    <body></body>
+
+</html>
+
+// ---SPECS-------------------------
+
+describe('myApp', function () {
+    it('should simulate promise', inject(function ($q, $rootScope) {
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+        var resolvedValue;
+
+        promise.then(function (value) {
+            resolvedValue = value;
+        });
+        expect(resolvedValue).toBeUndefined();
+
+        // Simulate resolving of promise
+        deferred.resolve(123);
+        // Note that the 'then' function does not get called synchronously.
+        // This is because we want the promise API to always be async, whether or not
+        // it got called synchronously or asynchronously.
+        expect(resolvedValue).toBeUndefined();
+
+        // Propagate promise resolution to 'then' functions using $apply().
+        $rootScope.$apply();
+        expect(resolvedValue).toEqual(123);
+    }));
+});
