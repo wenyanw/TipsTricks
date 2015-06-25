@@ -1,0 +1,5 @@
+source from http://stackoverflow.com/questions/7328765/dns-gethostname-from-where-information-is-retrived
+preferred answer:
+Dns.GetHostName queries your DNS servers registered in your IP settings for your name (that's why it can return socket exception). DNS info is cached. You can do ipconfig /flushdns to clear it.
+
+You can also get the netbios machine name from Environment.MachineName which is the static machine name from the registry. Note that netbios machine names are limited to 15 chars while DNS names are not.
