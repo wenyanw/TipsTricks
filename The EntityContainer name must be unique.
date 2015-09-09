@@ -1,0 +1,8 @@
+I set up a web service weeks ago, and today it didn't work, throw the error below:
+
+error 0019: The EntityContainer name must be unique. An EntityContainer with the name 'MyAppEntities1' is already defined. ##.csdl(69,4) : 
+error 0019: Each type name in a schema must be unique. Type name '' was already defined. ##.csdl(79,4) : 
+error 0019: Each type name in a schema must be unique. Type name '' was already defined. ##.csdl(89,4) : 
+
+The reason was other deveoloper set up another web site, and has MyAppEntities1.edmx too.
+The solution is to rename the edmx file, EntityContainer, and update the connection string under app.Config and Web.Config.
