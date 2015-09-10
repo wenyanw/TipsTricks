@@ -1,3 +1,4 @@
+1. The EntityContainer name must be unique.
 I set up a web service weeks ago, and today it didn't work, throw the error below:
 
 error 0019: The EntityContainer name must be unique. An EntityContainer with the name 'MyAppEntities1' is already defined. ##.csdl(69,4) : 
@@ -6,3 +7,13 @@ error 0019: Each type name in a schema must be unique. Type name '' was already 
 
 The reason was other deveoloper set up another web site, and has MyAppEntities1.edmx too.
 The solution is to rename the edmx file, EntityContainer, and update the connection string under app.Config and Web.Config.
+
+2. Metadata file couldn't be found
+When open a solution previously build in VS 2013 in vs 2015, some projects had the build error as "metadata .ll couldn't be found."
+Soluion:
+1. clean solution, then rebuild solution;
+2. Go to project's folder, uncheck the bin folder's read only property
+
+3. Nuget package need to restore:
+In VS 2015, if go to tools -> nuGet package management, couldn't find the restore button which is on the top right side of the screen,
+then edit the project file, remove there has <Nuget.targets>, and Nugetimports section. the .proj file should complie.
