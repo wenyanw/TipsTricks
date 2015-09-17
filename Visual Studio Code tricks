@@ -1,1 +1,3 @@
-1. type in "div>ul>li*5" and hit tab, will generate html by itself
+1. Emmet
+type in "div>ul>li*5" and hit tab, will generate html by itself
+div.container , hot tab -> <div class='container'/>
