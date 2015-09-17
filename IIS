@@ -1,0 +1,33 @@
+1. change default installation folder
+
+http://forums.iis.net/t/1149270.aspx?Change+default+installation+folder+c+inetpub+to+another+volume
+jhboricua
+1 Post
+Re: Change default installation folder c:\inetpub to another volume
+Nov 20, 2010 02:21 AM|LINK
+
+I'm surprised nobody mentioned using an answer file to do the IIS installation. This option is detailed by MS here:
+
+http://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/efefcb53-b86e-4cac-9b4b-fcf5f1145aa9.mspx?mfr=true
+
+I do this all the time. I have an answer file with the following items:
+-------------------
+[Components]
+iis_common = on
+iis_www = on
+iis_inetmgr = on
+iis_asp = on
+aspnet = on
+complusnetwork = on
+
+[InternetServer]
+PathWWWRoot = D:\IIS-Data\www
+-----------------
+
+Then install from the command line with: Sysocmgr.exe /i:C:\windows\inf\sysoc.inf /u:AnswerFileLocation
+
+In the above example, this will default the install of the WwwRoot directory (and thus new websites created on IIS) to D:\IIS-Data\www\
+
+Regards,
+
+Jose
