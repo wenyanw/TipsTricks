@@ -1,5 +1,6 @@
-You can also nest groups:
+Source from https://github.com/wenyanw/console-object
 
+You can also nest groups:
 // New group for authentication:
 console.group("Authenticating user '%s'", user);
 // later...
