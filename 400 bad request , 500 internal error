@@ -1,0 +1,128 @@
+The web service return 500 internal server error. When debugging on the web server, found the following error msg:
+Server Error in '/DevProject' Application.
+________________________________________
+Response status code does not indicate success: 400 (Bad Request).
+Description: An unhandled exception occurred during the execution of the current web request. Please review the stack trace for more information about the error and where it originated in the code. 
+
+Exception Details: System.Net.Http.HttpRequestException: Response status code does not indicate success: 400 (Bad Request).
+
+Source Error: 
+An unhandled exception was generated during the execution of the current web request. Information regarding the origin and location of the exception can be identified using the exception stack trace below.
+
+Stack Trace: 
+
+[HttpRequestException: Response status code does not indicate success: 400 (Bad Request).]
+   System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode() +90920
+   DevProject.Helpers.<PostAsync>d__5`1.MoveNext() in C:\TFS\DevBranch\DevProject\DevProject\Helpers\ServiceWrapperHelper.cs:53
+   System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task) +93
+   System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task) +52
+   System.Runtime.CompilerServices.TaskAwaiter`1.GetResult() +24
+   DevProject.Helpers.ServiceWrapperHelper.Save(String uri, T value, Boolean isInsert) in C:\TFS\DevBranch\DevProject\DevProject\Helpers\ServiceWrapperHelper.cs:89
+   DevProject.Helpers.Services.WebAPIServiceWrapper.CreateExceptions(DevViewModel stallException) in C:\TFS\DevBranch\DevProject\DevProject\Helpers\Services\WebAPIServiceWrapper.cs:36
+   DevProject.Controllers.DevController.ProcessPAStallException(String btnExit, String btnNext, DevViewModel vm) in C:\TFS\DevBranch\DevProject\DevProject\Controllers\DevController.cs:107
+   lambda_method(Closure , ControllerBase , Object[] ) +193
+   System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters) +14
+   System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters) +168
+   System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters) +27
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState) +22
+   System.Web.Mvc.Async.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult) +29
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult) +32
+   System.Web.Mvc.Async.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d() +50
+   System.Web.Mvc.Async.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f() +225
+   System.Web.Mvc.Async.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult) +34
+   System.Web.Mvc.Async.<>c__DisplayClass2b.<BeginInvokeAction>b__1c() +26
+   System.Web.Mvc.Async.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult) +100
+   System.Web.Mvc.Async.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult) +10
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +49
+   System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult) +27
+   System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState) +13
+   System.Web.Mvc.Async.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult) +36
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +54
+   System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult) +39
+   System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller) +12
+   System.Web.Mvc.Async.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult) +28
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +54
+   System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult) +29
+   System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult) +10
+   System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState) +21
+   System.Web.Mvc.Async.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult) +36
+   System.Web.Mvc.Async.WrappedAsyncResultBase`1.End() +54
+   System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult) +31
+  System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result) +9
+   System.Web.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute() +9651188
+   System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously) +155
+
+________________________________________
+Version Information: Microsoft .NET Framework Version:4.0.30319; ASP.NET Version:4.0.30319.34209
+
+Service controller code:
+
+    [RoutePrefix("api")]
+    public class DevServiceController : ApiController
+    {
+        [HttpPost]
+        [Route("")]
+        public void Save(DevExeceptionModel model)
+        {
+            devHelper. Save (model);
+        }
+}
+
+Client side Post: waiting for response with a integer as response content.
+
+        public async Task<int> PostAsync<T>(string uri, T value)
+        {
+            var handler = new HttpClientHandler() { UseDefaultCredentials = true };
+
+            using (var client = new HttpClient(handler))
+            {
+                client.BaseAddress = new Uri(BaseServiceUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                try
+                {
+                    var response = client.PostAsJsonAsync<T>(uri, value).GetAwaiter().GetResult();
+                    response.EnsureSuccessStatusCode();
+                    return await Task<int>(response, BaseServiceUrl);
+                }
+                catch (HttpRequestException e)
+                {
+                    throw;
+                }
+            }
+        }
+
+To fixed this:
+1.	Reserialized the response content;
+2.	However, it will need to update other service’s controller. A temp solution will allow return content by service.
+
+client site: 
+        private static async Task<int> Task<T>(HttpResponseMessage response, string BaseServiceUrl)
+        {
+            //Dev serviceUrl return string
+            if (serviceUrl like “target url”)
+            {
+                return 1;
+            }
+
+            return await response.Content.ReadAsAsync<int>();
+        }
+        
+Server site: return string 
+
+        [HttpPost]
+        [Route("")]
+        public string Save(DevExeceptionModel model)
+        {
+            devHelper. Save (model);
+            return string.format("create a record {0}", model.userName};
+        }
+
+
+
+
