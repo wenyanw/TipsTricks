@@ -1,0 +1,11 @@
+You can also nest groups:
+
+// New group for authentication:
+console.group("Authenticating user '%s'", user);
+// later...
+console.log("User authenticated", user);
+// A nested group for authorization:
+console.group("Authorizing user '%s'", user);
+console.log("User authorized");
+console.groupEnd();
+console.groupEnd();
