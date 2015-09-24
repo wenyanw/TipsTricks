@@ -1,0 +1,40 @@
+http://forums.asp.net/t/1909738.aspx?The+meaning+and+nice+explanation+of+AllIncluding+in+EF+5+scaffolding+generated+Repository+
+
+The meaning and nice explanation of AllIncluding in EF 5 scaffolding generated Repository !.
+May 27, 2013 09:21 AM|LINK
+
+Hi dear friends,
+
+I have ganerated a new Repository based on Scaffolding.It shows me a new method which is I can not understand the input parameters of it.The method is this for example :
+
+public IQueryable<People> AllIncluding(params Expression<Func<People, object>>[] includeProperties)
+        {
+            IQueryable<People> query = context.People;
+            foreach (var includeProperty in includeProperties) {
+                query = query.Include(includeProperty);
+            }
+            return query;
+        }
+Can someone explain me please what is this exactly.I really need to know the usage and the meaning of the parameters.
+
+Warm Regards
+
+Ali 
+Re: The meaning and nice explanation of AllIncluding in EF 5 scaffolding generated Repository !.
+Sep 27, 2013 01:29 PM|LINK
+
+This method allows you to Eager Load the related Properties: http://msdn.microsoft.com/en-us/data/jj574232.aspx
+
+If you have a Blog Object that has a collection of Posts objects, you can load the Blog and the object by calling
+
+var blog = _blogRepository.AllIncluding(blog => b.Posts);
+
+The signature of this method also takes in an array of expressions, you can chain other collections as well.
+
+For example: if your blog has a collection of Tags, and, you want to load the blog AND the posts AND the Tags
+
+var blog = _blogRepository.AllIncluding(blog => b.Posts, b=>b.Tags);
+
+HTH
+
+Chuck Bryan
