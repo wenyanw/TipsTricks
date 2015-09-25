@@ -131,7 +131,7 @@ image
 
 The above code snippet shows a project that is set up to retrieve configuration values from a JSON file and environmental variables. You can change this code if you need to specify other sources. In the specified config.json file, you could provide the values.
 
-image
+Wenyan's notes : reference: http://getbootstrap.com/customize/
 
 In your host environment, such as Azure, you can set the environmental variables and those values are automatically used instead of local configuration values after the application is deployed. You can deploy your application without worrying about publishing test values.
 
