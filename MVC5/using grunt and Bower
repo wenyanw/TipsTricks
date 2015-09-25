@@ -1,0 +1,22 @@
+1. http://docs.asp.net/en/latest/client-side/
+
+Client-Side Development
+
+Using Gulp
+http://docs.asp.net/en/latest/client-side/using-gulp.html
+
+Using Grunt
+http://docs.asp.net/en/latest/client-side/using-grunt.html
+
+Manage Client-Side Packages with Bower
+http://docs.asp.net/en/latest/client-side/bower.html
+
+Building Beautiful, Responsive Sites with Bootstrap
+Knockout.js MVVM Framework
+Using Angular for Single Page Applications (SPAs)
+Styling Applications with Less, Sass, and Font Awesome
+🔧 Bundling and Minification
+🔧 Working with a Content Delivery Network (CDN)
+🔧 Responsive Design for the Mobile Web
+🔧 Introducing TypeScript
+Building Projects with Yeoman
