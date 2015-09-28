@@ -1,0 +1,15 @@
+Source from:
+http://stackoverflow.com/questions/13718305/how-to-convert-liststring-to-dictionaryint-string
+
+Orginal code:
+ var dictionary = new Dictionary<int, String>();
+    int index = 0;
+    list.ForEach(x=>{
+      definitions.Add(index, x);
+      index++;
+});
+
+
+better version:
+var dict = list.Select((x, i) => new {x, i})
+    .ToDictionary(a => a.i, a => a.x);
