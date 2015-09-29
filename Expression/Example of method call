@@ -1,0 +1,69 @@
+
+	1. 	DataAccess repository:
+		
+		namespace project.Repositories
+		{
+			public class GeoLanguageRepository : BaseRepository<baseEntities>
+			{
+				public GeoLanguageRepository() : this(new baseEntities()) { }
+
+				public GeoLanguageRepository(baseEntities context) : base(context) { }
+
+				public GeoLanguageRepository(WcdliveUnitOfWork unitOfWork) : base(unitOfWork) { }
+
+				public IQueryable<StateProvs> GetStateProvinces => Context.StateProvs;
+			}
+		}
+		
+	2.	namespace project.BusinessObjects
+		{
+			using System;
+			using System.Collections.Generic;
+			
+			public partial class StateProvs
+			{
+				public short CountryNum { get; set; }
+				public short LanguageNum { get; set; }
+				public string StateProv { get; set; }
+				public string CountryCode { get; set; }
+				public string CountryName { get; set; }
+				public int StateProvNum { get; set; }
+			}
+		}
+		
+	3. Business logic: MethodCallExpression
+	
+        public IQueryable<StateProvs> GetByCountryLangNum(int countryNum, int langNum)
+        {
+            var stateProvCountryViews = _geoLanguageRepository.GetStateProvinces;
+
+            ParameterExpression countryNumPe = Expression.Parameter(typeof(StateProvs), "canbeAnything");
+
+            // Create an expression tree that represents the expression 'CountryNum == countryNum'.
+            Expression left = Expression.Property(countryNumPe, typeof(StateProvs).GetProperty("CountryNum"));
+            Expression right = Expression.Constant((short)countryNum, typeof(short));
+            Expression e1 = Expression.Equal(left, right);
+
+            // Create an expression tree that represents the expression 'LanguageNum == langNum'.
+            left = Expression.Property(countryNumPe, typeof(StateProvs).GetProperty("LanguageNum"));
+            right = Expression.Constant((short)langNum, typeof(short));
+            Expression e2 = Expression.GreaterThan(left, right);
+
+            // Combine the expression trees to create an expression tree 
+            Expression countryLangPE = Expression.AndAlso(e1, e2);
+
+            MethodCallExpression whereCallExpression = Expression.Call(
+                typeof(Queryable),
+                "Where",
+                new Type[] { stateProvCountryViews.ElementType },
+                stateProvCountryViews.Expression,
+                Expression.Lambda<Func<StateProvs, bool>>(countryLangPE, new ParameterExpression[] { countryNumPe }));
+
+
+            // Create an executable query from the expression tree.
+            var results = stateProvCountryViews.Provider.CreateQuery<StateProvs>(whereCallExpression);
+
+            return results;
+
+        }
+		
