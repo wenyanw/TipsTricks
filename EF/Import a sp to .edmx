@@ -1,1 +1,3 @@
 http://www.codeproject.com/Articles/759328/Using-stored-procedures-in-Entity-Framework-Model
+1. uncheck pluralize or singularize generated object names
+2. run custom tool
