@@ -1,0 +1,39 @@
+https://msdn.microsoft.com/en-us/data/gg699321.aspx
+public ObjectResult<OrderDetail> GetDetailsForOrder 
+ (Nullable<global::System.Int32> orderid) 
+{ 
+  ObjectParameter orderidParameter; 
+  if (orderid.HasValue) 
+  { 
+    orderidParameter = new ObjectParameter("orderid", orderid); 
+  } 
+  else 
+  { 
+    orderidParameter = new ObjectParameter("orderid", typeof(global::System.Int32)); 
+  } 
+  return base.ExecuteFunction<OrderDetail>("GetDetailsForOrder", orderidParameter); 
+} 
+public ObjectResult<OrderDetail> GetDetailsForOrder(Nullable<global::System.Int32> 
+ orderid, MergeOption mergeOption) 
+{ 
+  ObjectParameter orderidParameter; 
+  if (orderid.HasValue) 
+  { 
+    orderidParameter = new ObjectParameter("orderid", orderid); 
+  } 
+  else 
+  { 
+    orderidParameter = new ObjectParameter("orderid", typeof(global::System.Int32)); 
+  } 
+  return base.ExecuteFunction<OrderDetail>("GetDetailsForOrder", mergeOption, 
+                                           orderidParameter); 
+}
+The first method takes the expected orderid parameter and returns an ObjectResult of OrderDetail types. The second contains an additional parameter allowing you to specify which merging strategy to use. As with queries, the default is AppendOnly, which will add to the context any entities returned from the database that are not already being tracked and not bother materializing any duplicates. (See MSDN topic “Identity Resolution, State Management, and Change Tracking” at http://msdn.microsoft.com/en-us/library/bb896269.aspx for more information on MergeOptions).
+
+The ObjectResult is an enumerable collection class, but it is a forward-only collection so once it has been enumerated, you cannot enumerate it again. For example, if you call ToList on the result, e.g., GetDetailsForOrder(3).ToList(), then you cannot subsequently provoke another enumeration by calling ToList again, binding the results to a control or executing a foreach over the results.
+
+You can call the method through the context as follows:
+
+var context = new AWEntities(); 
+ObjectResult<OrderDetail> orderDetailEnumerable = context.GetDetailsForOrder(71796); 
+List<OrderDetail> details = orderDetailEnumerable.ToList();
