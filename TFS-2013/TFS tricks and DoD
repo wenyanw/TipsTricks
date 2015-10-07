@@ -36,3 +36,15 @@ Testing, Deployment, Ops
     DBAs
      Load tested
      Deployed to Production
+    
+Three wins of DoD
+Integration
+• Bring your code together
+• Make sure it compiles
+• Version code as a unit
+Quality
+• Make sure code works
+• Measure how well it’s been tested
+• Know what’s been tested
+Deployment
+• Make sure you can verify your c
