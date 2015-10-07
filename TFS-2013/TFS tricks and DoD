@@ -48,3 +48,16 @@ Quality
 • Know what’s been tested
 Deployment
 • Make sure you can verify your c
+
+TFS Build Triggers
+ Manual
+ Someone has to run it
+ Scheduled
+ Runs automatically based on a schedule
+ Continuous Build
+ Each time someone checks in
+ Gated Check-in
+ Each time someone checks in
+ No direct check-ins to version control
+ Based off of a shelveset
+ Doesn’t work with Git
