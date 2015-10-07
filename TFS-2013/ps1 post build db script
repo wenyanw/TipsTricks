@@ -1,0 +1,15 @@
+post-build.ps1 file
+
+[CmdletBinding()]
+
+param()
+
+$binariesPath = $Env:TF_BUILD_BINARIESDIRECTORY
+
+$dacpacPath = [System.IO.Path]::Combine($binariesPath, "Benday.Scrum.SampleApp.Database.dacpac")
+ 
+$connectionString = "Data Source=demoweb2013; Initial Catalog=Benday.Scrum.SampleApp.Database; Integrated Security=True;"
+
+sqlpackage /action:Publish /sourceFile:"$dacpacPath" /targetconnectionstring:"$connectionString"
+
+and add this file path to build definition/advanced/post build script path.
