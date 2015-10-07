@@ -1,0 +1,38 @@
+Queries:  Pin on the home page hover the query, click on a down arrow on the left, select pin to the home page    
+Query generate charts: select a flat list query, and click on "chart".
+
+Sample Definition of Done (DoD)
+Development / Coder
+     Code is written with
+    unit tests
+     Unit tests have a minimum of 75%
+    code coverage
+     Code has been merged to Main
+     Code compiles and unit tests pass
+    when run as part of an automated
+    build
+     Database schema objects are
+    checked in to TFS
+     Database upgrade script is written
+    and in TFS
+     Code reviewed by someone other
+    than the original author
+Testing, Deployment, Ops
+     Written QA test plan
+     Tested with QA test plan by
+    someone other than the original
+    author
+     Deployed and tested in Staging
+    environment
+     Automated UI tests are
+    written and pass
+     No Severity 1 or 2 bugs
+     Reviewed by Product Owner
+     Passes acceptance criteria for the
+    PBI
+     Known deployment & rollback plan
+     Deployment plan reviewed by Ops
+     Database changes reviewed by
+    DBAs
+     Load tested
+     Deployed to Production
