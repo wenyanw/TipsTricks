@@ -65,3 +65,16 @@ TFS Build Triggers
 “ALM for Developers”
 by Benjamin Day
 http://pluralsight.com/courses/alm-for-developers
+Customizations Using PowerShell Build Events
+ Pre-build
+ Environment-based config scripts?
+ Post-build
+ Deploy / configure for tests?
+ Deploy web app?
+ Deploy database?
+ Pre-test
+ Deploy / configure for tests?
+ Post-test
+ Deploy to production?
+Compile
+Unit
