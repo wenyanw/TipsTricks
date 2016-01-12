@@ -17,3 +17,6 @@ Soluion:
 3. Nuget package need to restore:
 In VS 2015, if go to tools -> nuGet package management, couldn't find the restore button which is on the top right side of the screen,
 then edit the project file, remove there has <Nuget.targets>, and Nugetimports section. the .proj file should complie.
+
+4. Upgrade .Net framework from 4.5.1 to 4.6
+http://blogs.msdn.com/b/dotnet/archive/2015/12/09/support-ending-for-the-net-framework-4-4-5-and-4-5-1.aspx
