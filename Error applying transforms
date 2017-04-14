@@ -1,0 +1,18 @@
+'Error applying transforms. Verify that the specified transform paths are valid' when trying to install or uninstall
+source from https://support.avg.com/SupportArticleView?l=en&urlName=Error-applying-transforms-Verify-that-the-specified-transform-paths-are-valid-when-trying-to-install-or-uninstall
+Problem description
+When trying to uninstall or install Norman Security Suite or Norman Endpoint protection, the following error message is displayed and uninstall/install is aborted:
+
+ "Error applying transforms. Verify that the specified transform paths are valid" 
+
+Solution
+Make sure that you are not trying to install on top of an already existing version. If you do, you will have to uninstall the current version. If you are still having issues, please proceed to the next step.
+Download and run the Microsoft Fixit tool, and tell it to fix installation problems. If you're still having issues, please proceed to the next step.
+We have to identify and remove a registry key containing some invalid values:
+Hold down the Windows key and press R.
+In the dialog box give the command regedit and press Enter.
+In Regedit, press F3 to bring up the search dialog.
+Search for Norman Security Suite or Norman Endpoint Protection (depending of which product you are trying to install/uninstall).
+When it finds the first entry you can press F3 on your keybord to jump to the next one. Do this until you have found a key looking like this: HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Products\*string-of-random-characters*
+If you have identified the correct key, it will contain multiple values, among them ProductName.
+Delete the entire key and all its values. For example, if the key is HKEY_CLASSES_ROOT\Installer\Products\29B41297934A14841B0680699E773A38, delete all of it.
